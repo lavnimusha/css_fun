@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>playing with css variables and js</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <style>
+        img{
+            width:30%;
+            height: 25%;
+            margin: 20px;
+            opacity: 1;
+            border: 10px solid black;
+            backdrop-filter: blur(5px);
+        }
+        h2{
+            font-size: 25px;
+        }
+        </style>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+            <h2>Update CSS variables with <span class="h1">JS</span></h2>
+            <div class="controls">
+            <label for="spacing">Spacing</label>
+            <input type="range" name="spacing" value="10" min="10" max="200" data-sizing="px" onchange="spacing()">
+            <label for="blur">Blur</label>
+            <input type="range" name="blur" value="10" min="0" max="10" data-sizing="px" onchange="seethrough()">
+            <label for="base">Base Color</label>
+            <input type="color" name="base" value="#ffce66" onchange="colour()" >
+        </div>
+        <img id="pic" src="https://cdn.cnn.com/cnnnext/dam/assets/190910120101-04-shopping-cities-photos.jpg">
+            
+            <script>
+
+            var heading = document.querySelector('.h1'); 
+            var clr = document.querySelector(`[name='base']`); 
+            var blur = document.querySelector(`[name='blur']`); 
+            var space = document.querySelector(`[name='spacing']`);
+            var image = document.getElementById("pic");
+            heading.style.color = clr.value;
+            function seethrough(){
+                console.log(blur.value);
+                image.style.opacity = (blur.value)/10;
+            }
+            function spacing(){
+                console.log(space.value);
+                image.style.borderWidth = space.value+"px";
+            }
+            function colour(){
+                image.style.borderColor = clr.value;
+            }
+            </script>
+    </body>
+</html>
