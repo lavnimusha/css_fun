@@ -11,13 +11,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
         <style>
+        :root{
+            --spacing: 12px ;
+            --base: black;
+            --blur: 10px;
+        }
         img{
             width:30%;
             height: 25%;
             margin: 20px;
-            opacity: 1;
-            border: 10px solid black;
-            backdrop-filter: blur(5px);
+            background: var(--base);
+            padding: var(--spacing);
+            filter: blur(var(--blur));
         }
         h2{
             font-size: 25px;
@@ -31,33 +36,21 @@
             <h2>Update CSS variables with <span class="h1">JS</span></h2>
             <div class="controls">
             <label for="spacing">Spacing</label>
-            <input type="range" name="spacing" value="10" min="10" max="200" data-sizing="px" onchange="spacing()">
+            <input type="range" name="spacing" value="10" min="10" max="200" data-sizing="px">
             <label for="blur">Blur</label>
-            <input type="range" name="blur" value="10" min="0" max="10" data-sizing="px" onchange="seethrough()">
+            <input type="range" name="blur" value="10" min="0" max="10" data-sizing="px" >
             <label for="base">Base Color</label>
-            <input type="color" name="base" value="#ffce66" onchange="colour()" >
+            <input type="color" name="base" value="#ffce66" >
         </div>
         <img id="pic" src="https://cdn.cnn.com/cnnnext/dam/assets/190910120101-04-shopping-cities-photos.jpg">
             
-            <script>
-
-            var heading = document.querySelector('.h1'); 
-            var clr = document.querySelector(`[name='base']`); 
-            var blur = document.querySelector(`[name='blur']`); 
-            var space = document.querySelector(`[name='spacing']`);
-            var image = document.getElementById("pic");
-            heading.style.color = clr.value;
-            function seethrough(){
-                console.log(blur.value);
-                image.style.opacity = (blur.value)/10;
-            }
-            function spacing(){
-                console.log(space.value);
-                image.style.borderWidth = space.value+"px";
-            }
-            function colour(){
-                image.style.borderColor = clr.value;
-            }
-            </script>
+        <script>
+            var universal = document.querySelectorAll('input');
+            function doSomething(){
+                const sufix = this.dataset.sizing || '';
+                document.documentElement.style.setProperty(`--${this.name}`,this.value+sufix);
+                }
+                universal.forEach(input => input.addEventListener('change',doSomething));           
+        </script>
     </body>
 </html>
